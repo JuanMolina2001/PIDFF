@@ -1,5 +1,5 @@
 gh ="""
-    gh: https://github.com/juanmnl/bioinformatica
+    gh: https://github.com/JuanMolina2001/PIDFF
 """
 DNA = """
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣦⣀
