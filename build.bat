@@ -5,6 +5,8 @@ if %errorlevel% neq 0 (
     echo PyInstaller not installed. Please install it before running this script.
     exit /b 1
 )
-pyinstaller --onefile --add-data "assets;assets" main.py
+pyinstaller --add-data "assets;assets" main.py
+pyinstaller --onefile update.py
+
 
 pause

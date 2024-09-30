@@ -6,4 +6,4 @@ then
     exit 1
 fi
 
-pyinstaller --onefile --add-data "assets;assets" main.py
+pyinstaller --add-data "assets;assets" main.py
