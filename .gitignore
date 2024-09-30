@@ -1,0 +1,9 @@
+# Cache files
+*.pyc
+__pycache__/
+
+# Build directory
+build/
+
+# Environment directory
+env/
