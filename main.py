@@ -1,8 +1,5 @@
-from Bio import Entrez
-from Bio import SeqIO
-import tkinter as tk
 
-import pandas as pd
+import tkinter as tk
 from utils import *
 
 win.title("PIDFF")
@@ -40,4 +37,5 @@ delete_btn.pack(side="right")
 export_btn.pack(side="left")
 frame_table.pack()
 set_menu()
+
 win.mainloop()

@@ -5,7 +5,12 @@ import webbrowser
 import os
 from Bio import Entrez, SeqIO
 import pandas as pd
-from update import check_update
+import requests
+from tkinter import messagebox
+import os
+
+
+
 dirname = os.path.dirname(__file__)
 win = tk.Tk()
 table = ttk.Treeview(win,  show="headings")
@@ -87,14 +92,11 @@ def about():
     )
     btn_gh.pack()
     modal.mainloop()
-
 def set_menu():
     menubar = tk.Menu(win)
     file = tk.Menu(menubar, tearoff=0)
     edit = tk.Menu(menubar, tearoff=0)
     help = tk.Menu(menubar, tearoff=0)
-    
-    file.add_command(label="New window", command=lambda: run(["env/Scripts/python.exe", "main.py"]))
     file.add_command(label="Export Table", command=export)
     file.add_command(label="Exit", command=lambda: win.destroy())
     edit.add_command(label="Clear Table", command=delete)

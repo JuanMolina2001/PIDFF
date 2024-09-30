@@ -6,4 +6,12 @@ then
     exit 1
 fi
 
-pyinstaller --add-data "assets;assets" main.py
+if [ $1 = "main" ]
+then
+    pyinstaller --noconsole --onefile --add-data "assets;assets" $1.py
+
+fi
+if [ $1 = "updater" ]
+then
+    pyinstaller --noconsole --onefile $1.py
+fi
