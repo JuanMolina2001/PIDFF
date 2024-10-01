@@ -1,5 +1,4 @@
 
-import tkinter as tk
 from utils import *
 
 win.title("PIDFF")
