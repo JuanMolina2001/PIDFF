@@ -6,9 +6,9 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 if %1%==main (
-    pyinstaller --noconsole --onefile --add-data "assets;assets" %1%.py
+    pyinstaller --noconsole --onefile --add-data "assets;assets" --icon=assets/images/icon.ico %1%.py
 )
 if %1%==updater (
-    pyinstaller --noconsole --onefile  %1%.py
+    pyinstaller --onefile --noconsole  %1%.py
 )
 pause

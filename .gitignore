@@ -4,6 +4,7 @@ __pycache__/
 
 # Build directory
 build/
+dist/
 
 # Environment directory
 env/
