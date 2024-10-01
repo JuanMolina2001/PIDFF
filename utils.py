@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
-from subprocess import run, Popen
+from subprocess import Popen
 import webbrowser
 import os
 from Bio import Entrez, SeqIO
@@ -9,16 +9,55 @@ import os
 import threading
 import sys
 import json
+
 dirname = os.path.dirname(__file__)
 win = tk.Tk()
 win.iconbitmap(os.path.join(dirname, "assets/images/icon.ico"))
-table = ttk.Treeview(win,  show="headings")
+table = ttk.Treeview(win, show="headings")
 
-# images
+
+
+info = json.load(open("info.json"))
+if info["open"] is False:     
+    modal = tk.Toplevel(win)
+    modal.title("Notes")
+    modal.geometry("500x400")
+    modal.resizable(False, False)
+    canvas = tk.Canvas(modal)
+    scrollbar = tk.Scrollbar(modal, orient="vertical", command=canvas.yview)
+    scrollable_frame = tk.Frame(canvas)
+    notes: list = info["note"].split("\n")
+    for note in notes:
+        note = note.strip()
+        note = note.replace("*", "")
+        if note == "":
+            continue
+        if note.startswith("###"):
+            note = note.replace("###", "")
+            tk.Label(scrollable_frame, anchor=tk.W, width=50,text=note, font=("Helvetica", 9, "bold")).pack(expand=True, )
+        elif note.startswith("##"):
+            note = note.replace("##", "")
+            tk.Label(scrollable_frame, anchor=tk.W, width=50,text=note, font=("Helvetica", 10, "bold")).pack(expand=True, )
+        elif note[0].isdigit():
+            note = note.replace("**", "")
+            tk.Label(scrollable_frame, anchor=tk.W, width=50,text=note, font=("Helvetica", 8, "bold")).pack(expand=True, )
+        else:
+            note = note.replace("-", "")
+            tk.Label(scrollable_frame, anchor=tk.W, width=50,text=note).pack(expand=True, )# images
+    canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+    canvas.configure(yscrollcommand=scrollbar.set)
+    scrollbar.pack(side="right", fill="y")
+    canvas.pack(side="left", fill="both", expand=True)
+    with open("info.json", "r") as f:
+        data = json.load(f)
+        data["open"] = True
+        with open("info.json", "w") as f:
+            json.dump(data, f, indent=4)
 delete_img = tk.PhotoImage(file=os.path.join(dirname, "assets/images/delete.png"))
 add_img = tk.PhotoImage(file=os.path.join(dirname, "assets/images/add.png"))
 export_img = tk.PhotoImage(file=os.path.join(dirname, "assets/images/excel.png"))
 set_img = tk.PhotoImage(file=os.path.join(dirname, "assets/images/set.png"))
+gh_image = tk.PhotoImage(file=os.path.join(dirname, "assets/images/github.png"))
 
 
 def submit(data: tuple):
@@ -73,8 +112,9 @@ def set_table(data: tuple):
 
 def add_table(data: tuple):
     submit(data)
+
+
 def about():
-    info = json.load(open("info.json"))
     modal = tk.Toplevel(win)
     modal.title("About")
     modal.geometry("300x200")
@@ -84,21 +124,30 @@ def about():
     tk.Label(modal, text=f"Author: {info['author']}").pack()
     tk.Label(modal, text=f"Email: {info['email']}").pack()
     tk.Label(modal, text="Github").pack()
-    gh_image = tk.PhotoImage(file=os.path.join(dirname, "assets/images/github.png"))
-    btn_gh = tk.Button(
+    tk.Button(
         modal,
         image=gh_image,
         command=lambda: webbrowser.open(f"https://github.com/{info['url']}"),
-    )
-    btn_gh.pack()
-    tk.Button(modal, text="Protein icon by Icons8", command=lambda: webbrowser.open("https://icons8.com/icon/18334/protein")).pack()
-    modal.mainloop()
+    ).pack()
+    tk.Button(
+        modal,
+        text="Protein icon by Icons8",
+        command=lambda: webbrowser.open("https://icons8.com/icon/18334/protein"),
+    ).pack()
+
+
+
 def update():
-    response = messagebox.askquestion("Update", "A new version is available. The update requires a restart of the application. Do you want to continue?")
+    response = messagebox.askquestion(
+        "Update",
+        "A new version is available. The update requires a restart of the application. Do you want to continue?",
+    )
     if response == "yes":
         threading.Thread(target=lambda: Popen(["updater.exe"], shell=True)).start()
         win.destroy()
         sys.exit()
+
+
 def set_menu():
     menubar = tk.Menu(win)
     file = tk.Menu(menubar, tearoff=0)
@@ -114,4 +163,3 @@ def set_menu():
     menubar.add_cascade(label="Edit", menu=edit)
     menubar.add_cascade(label="Help", menu=help)
     win.config(menu=menubar)
-

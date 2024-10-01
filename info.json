@@ -3,6 +3,7 @@
     "version": "v0.1.0",
     "author": "Juan Molina",
     "email": "juanmolina2001@gmail.com",
-    "commit": "e72aea73e2d9e659413a36ad40d9c75a7cee896f",
-    "url": "JuanMolina2001/PIDFF"
+    "url": "JuanMolina2001/PIDFF",
+    "note": "## Version 0.1.0\n\n### Features\n\n1. **Data Input Interface**\n    - Integrated a field for users to enter their email address.\n    - A text area to input multiple protein IDs.\n\n2. **Protein Visualization Table**\n    - **ID**: Unique identification of the protein.\n    - **Organism**: Information about the organism of origin.\n    - **DBSOURCE**: Source of the protein database.\n    - **Sequence**: Amino acid sequence of the protein.\n\n3. **Functional Buttons:**\n    - **Insert Data**: Loads data into the table.\n    - **Add to Table**: Allows the user to add more data to the existing table.\n    - **Delete Items**: Facilitates cleaning the table.\n    - **Export Data**: Option to export the table information to an Excel file.",
+    "open": true
 }
